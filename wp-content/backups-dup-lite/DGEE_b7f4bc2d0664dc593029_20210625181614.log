@@ -1,0 +1,86 @@
+********************************************************************************
+DUPLICATOR-LITE PACKAGE-LOG: 25 June 2021 18h16
+NOTICE: Do NOT post to public sites or forums 
+********************************************************************************
+VERSION:	1.4.1
+WORDPRESS:	5.7.2
+PHP INFO:	7.2.33 | SAPI: apache2handler
+SERVER:		Apache/2.4.46 (Win64) PHP/7.2.33 
+PHP TIME LIMIT: (0) no time limit imposed 
+PHP MAX MEMORY: 4294967296 (128M default) 
+MEMORY STACK: 12MB
+
+********************************************************************************
+DATABASE:
+********************************************************************************
+BUILD MODE:   PHP(query limit - 100)
+MYSQLTIMEOUT: 5000
+MYSQLDUMP:    Not Supported
+TABLES: total:17 | filtered:0 | create:17
+FILTERED: []
+SQL CREATED: DGEE_b7f4bc2d0664dc593029_20210625181614_database.sql
+SQL FILE SIZE: 5.08MB (5328612)
+SQL FILE TIME: 2021-06-25 18:16:46
+SQL RUNTIME: 1.45 sec.
+
+********************************************************************************
+ARCHIVE (ZIP):
+********************************************************************************
+ARCHIVE DIR:  C:/wamp64/www/education
+ARCHIVE FILE: DGEE_b7f4bc2d0664dc593029_20210625181614_archive.zip
+FILTERS: *OFF*
+DIRS:
+	not set
+FILES:
+	not set
+EXTS:  not set
+----------------------------------------
+COMPRESSING
+SIZE:	190.31MB
+STATS:	Dirs 1,209 | Files 8,789
+SQL ADDED: DGEE_b7f4bc2d0664dc593029_20210625181614_database.sql
+ZipArchive Object
+(
+    [status] => 0
+    [statusSys] => 0
+    [numFiles] => 9998
+    [filename] => C:\wamp64\www\education\wp-content\backups-dup-lite\tmp\DGEE_b7f4bc2d0664dc593029_20210625181614_archive.zip
+    [comment] => 
+)
+
+FILE ADDED TO ZIP: 9997
+COMPRESSION RESULT: '1'
+COMPRESSED SIZE: 63.89MB
+ARCHIVE RUNTIME: 200.36 sec.
+MEMORY STACK: 16MB
+building installer
+add_extra_files1
+add_extra_files2
+add_extra_files3
+add_extra_files4
+Doing archive file check
+add_extra_files5
+add_extra_files6
+add_extra_files8
+Successfully opened zip C:/wamp64/www/education/wp-content/backups-dup-lite/tmp/DGEE_b7f4bc2d0664dc593029_20210625181614_archive.zip
+Adding enhanced installer files to archive using ZipArchive
+Installer files added to archive
+Added to archive
+After ziparchive close when adding installer
+
+********************************************************************************
+INTEGRITY CHECKS:
+********************************************************************************
+SQL FILE: 5.08MB
+INSTALLER FILE: 64.13KB
+ARCHIVE FILE: 65.29MB 
+COMPTE ATTENDU DE FICHIERS/RÉPERTOIRES : 9,998
+COMPTE ACTUEL DE FICHIERS/RÉPERTOIRES : 9,997
+TEST DE COHÉRENCE D’ARCHIVE : Bon
+
+********************************************************************************
+RECORD ID:[1]
+TOTAL PROCESS RUNTIME: 203.25 sec.
+PEAK PHP MEMORY USED: 18MB
+DONE PROCESSING => DGEE 25 June 2021 18h20
+

@@ -1,0 +1,35 @@
+PROFESSEUR
+-> 1 professeur peut suivre (durant le stage) au minimum 1 élève et au maximum plusieurs
+
+ELEVE :
+-> 1 élève est suivi au minimum par 1 professeur et au maximum par plusieurs
+-> 1 élève peut choisir 1 seul (unique) sexe //c'est bizarre si il n'en a pas..
+-> 1 élève peut consulter au minimum aucune offrepfmp et au maximum plusieurs  
+-> 1 élève peut consulter au minimum aucune offrep3e et au maximum plusieurs
+
+SEXE 
+-> 1 sexe est choisi au minimum par 1 élève et au maximum par plusieurs 
+
+OFFREPFMP (périodes de formation en milieu professionnel)
+-> 1 offrepfmp est consulté au minimum par 1 élève et au maximum par plusieurs
+-> 1 offrepfmp est déposé au minimum par 1 recruteur et au maximum par plusieurs.
+
+OFFRE3e
+-> 1 offre3e est consulté au minimum par 1 élève et au maximum par plusieurs
+-> 1 offre3e est déposé au minimum par 1 recruteur et au maximum par plusieurs.
+
+RECRUTEUR 
+-> 1 recruteur peut déposer au minimum aucune offrepfmp et au maximum plusieurs
+-> 1 recruteur peut déposer au minimum aucune offre3e et au maximum plusieurs
+
+Remarques : 
+- ETABLISSEMENT et ENTREPRISE ont été mis au cas où on devrait remplir manuellement (etabissement pour élève/prof et entreprise pour recruteur)
+Mais normalement ces informations nous seront fournis grâce au formulaire de chacun (prof/eleve/recruteur)
+A voir..
+- la table SEXE sera pré-rempli (id1 masculin - id2 féminin - id3 non-précisé) pour servir de table de nomenclature
+- nombreuses cardinalités N-N avec ELEVE car 1 élève est censé garder son même compte de 3e au lycée et plus encore
+
+Ervine Brothers
+
+
+

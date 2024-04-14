@@ -1,0 +1,234 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* css générale*/ 
+
+.marginleft{
+	margin-left:10% !important;
+}
+
+.heigh300{ 		/*code--ervine*/
+	height: 300px;
+	
+}
+
+.positionrelative{		/*code--ervine*/
+	position:relative !important;
+}
+
+.zindex0{
+	z-index:0;
+}
+
+.nomargin{
+	margin:0!important;
+}
+.nobottom{
+	margin-bottom:0px!important;
+}
+.nopadding{
+	padding:0!important;
+}
+
+
+.margintop20{
+	margin-top:20px;
+}
+
+.position-absolute{
+	position:absolute;
+}
+
+.marginleft60{
+	margin-left:60px!important;
+}
+
+.margintop10{
+	margin-top:10px;
+}
+
+.cursorpointer{
+	cursor:pointer;
+}
+
+.padding5{
+	padding:5px;
+}
+.padding20{
+	padding:20px;
+}
+
+
+.margintop0{
+	margin-top:0px!important;
+}
+
+.paddingtop0{
+	padding-top:0px!important;
+}
+
+
+.margintop20{
+	margin-top:20px!important;
+}
+
+.paddingtop20{
+	padding-top:20px!important;
+}
+
+.displayflexcenter{
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.textcenter{
+	text-align:center;
+}
+
+.fontbold{
+	font-weight:bold;
+}
+
+.margintop40{
+	margin-top:40px;
+}
+
+.height50{
+	    height: 50px;
+}
+.marginbottom10{
+	margin-bottom:10px;
+}
+.marginbottom40{
+	margin-bottom:40px;
+}
+.padding40{
+	padding:40px;
+}
+
+.margintop10{
+	margin-top:10px;
+}
+
+.margintop20{
+	margin-top:20px;
+}
+
+
+.fontsize15{
+	font-size:15px;
+}
+.fontsize30{
+	font-size:30px;
+}
+
+.borderbottom{
+	border-bottom:1px solid black;
+}
+
+.displayflexmiddle{
+	display: flex;
+    align-items: center;
+}
+
+.width160{
+	width:160px!important;
+}
+
+
+.listnostyle{
+	list-style:none!important;
+}
+
+.marginright10{
+	margin-right:10px!important;
+}
+
+.marginright20{
+	margin-right:20px!important;
+}
+
+.padding10{
+	padding:10px!important;
+}
+.height220{
+	height:220px;
+}
+
+.justifycontentcenter{
+	justify-content:center;
+}
+.width90{
+	width:90px!important;
+}
+
+.clearboth{
+	clear:both;
+	float:none;
+}
+
+.backgroundwhite{
+	background:white!important;
+}
+.backgroundgray{
+	background:#c1c1c1!important;
+}
+
+.backgroundgray2{
+	background:gray!important;
+}
+
+.marginleft20{
+	margin-left:20px;
+}
+.width100{
+	width:100%!important;
+}
+
+.colorblack{
+	color:black !important;		/*test-ervine*/
+}
+
+
+.displayflex{
+	display:flex;
+}
+
+.displaynone{
+	display:none;
+}
+
+.displaynone2{
+	display:none!important;
+}
+
+.colorgreen{
+	color:green;
+}
+
+.colorred{
+	color:red;
+}
+
+.colorblue{
+	color:#000091;
+}
+
+.marginbottom20{
+	margin-bottom:20px;
+}
+
+.displayinline{
+	display:inline;
+}
+
+.fontsize17px{
+	font-size:17px;
+}
+
+.nopadding{
+	padding:0px!important;
+}
+</style>
+<!-- end Simple Custom CSS and JS -->

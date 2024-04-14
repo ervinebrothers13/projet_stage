@@ -1,0 +1,111 @@
+@font-face {
+  font-family: 'university';
+  src:  url('fonts/university.eot?jt20by');
+  src:  url('fonts/university.eot?jt20by#iefix') format('embedded-opentype'),
+    url('fonts/university.ttf?jt20by') format('truetype'),
+    url('fonts/university.woff?jt20by') format('woff'),
+    url('fonts/university.svg?jt20by#university') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="university-"], [class*=" university-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'university' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.university-caret-right:before {
+  content: "\e91b";
+}
+.university-home:before {
+  content: "\e91a";
+}
+.university-phone:before {
+  content: "\e918";
+}
+.university-calendar-check-o:before {
+  content: "\e908";
+}
+.university-angle-down:before {
+  content: "\e909";
+}
+.university-trophy:before {
+  content: "\e90a";
+}
+.university-paper-plane-o:before {
+  content: "\e90b";
+}
+.university-thumbs-o-up:before {
+  content: "\e90c";
+}
+.university-university:before {
+  content: "\e90d";
+}
+.university-street-view:before {
+  content: "\e90e";
+}
+.university-vcard-o:before {
+  content: "\e90f";
+}
+.university-plane:before {
+  content: "\e910";
+}
+.university-bookmark:before {
+  content: "\e911";
+}
+.university-shield:before {
+  content: "\e912";
+}
+.university-book:before {
+  content: "\e913";
+}
+.university-heart-o:before {
+  content: "\e914";
+}
+.university-smile-o:before {
+  content: "\e915";
+}
+.university-globe:before {
+  content: "\e916";
+}
+.university-spinner:before {
+  content: "\e917";
+}
+.university-clock:before {
+  content: "\e919";
+}
+.university-file-text:before {
+  content: "\e902";
+}
+.university-key:before {
+  content: "\e903";
+}
+.university-monitor:before {
+  content: "\e904";
+}
+.university-laptop_chromebook:before {
+  content: "\e905";
+}
+.university-mail_outline:before {
+  content: "\e906";
+}
+.university-school:before {
+  content: "\e907";
+}
+.university-close:before {
+  content: "\e900";
+}
+.university-menu:before {
+  content: "\e901";
+}

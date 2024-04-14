@@ -1,0 +1,195 @@
+/*
+Style pour la génération de pdf
+*/
+
+body {
+
+    font-family: Times New Roman;
+}
+
+#texteministere {
+    font-weight: bold;
+    font-size: 12px;
+
+}
+
+#textedgee {
+    font-size: 13px;
+    font-weight: italic;
+
+}
+
+#textepolynesie {
+
+    font-size: 13px;
+    font-family: 'Bookman Old Style', 'sans-serif';
+
+}
+
+#textepolynesie {
+
+    font-weight: italic;
+
+}
+
+.fontbold {
+    font-weight: bold;
+}
+
+#tablehoraire {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#tablehoraire td {
+    text-align: center;
+}
+
+.displayflex {
+    display: flex;
+
+}
+
+.justifycontentcenter {
+    justify-content: center;
+
+}
+
+.justifycontentspacearound {
+    justify-content: space-around;
+}
+
+.aligncenter {
+    text-align: center;
+}
+
+.liststylenone li {
+    list-style: none;
+}
+
+
+/***** CSS ERVINE *****/
+
+/** class **/
+.test {
+    color: red !important;
+}
+
+.fontsize40 {
+    font-size: 40px;
+}
+
+.fontsize16 {
+    font-size: 14px;
+}
+
+.fontsize15 {
+    font-size: 15px;
+}
+
+.txtinfo {
+    font-size: 26px;
+    margin-bottom: 35px !important;
+}
+
+.bloccenter {
+
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+
+}
+
+.txtarticle{
+    font-size: 16px;
+}
+
+.txtarticle3eme{
+	 font-size: 18px;
+}
+
+.txtarticle3eme td{
+	text-align:justify;
+}
+.txtarticle3eme td p{
+	
+}
+
+.txtarticlebts{
+	 font-size: 16px;
+}
+
+.txtarticlebts td{
+	text-align:justify;
+}
+.txtarticlebts td p{
+	
+}
+.txtarticlepfmp{
+	 font-size: 18px;
+}
+
+.txtarticlepfmp td{
+	text-align:justify;
+}
+.txtarticlepfmp td p{
+	
+}
+
+
+.height10 {
+    height: 10px;
+}
+
+table.fonthoraire {
+    font-size: 26px;
+    font-style: italic;
+}
+
+.marginspace {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.paddingspace {
+    padding-bottom: 30px;
+    padding-top: 100px;
+}
+
+.center {
+    text-align: center;
+
+    /*margin: 0;*/
+    /*padding: 0;*/
+}
+.border {
+    border: 1px solid black ;
+}
+.tiret{ /**marche pas**/
+    list-style-type: circle !important;
+    display: inline-block !important;
+    text-align: right !important;
+}
+
+/** balise **/
+ul {
+    text-align: right;
+    font-size: 14px;
+    /*list-style-type: none; !*marche-pas*!*/
+}
+
+h3 {
+    font-size: 15px;
+}
+
+.tablet1 td p{
+	font-size:10px;
+}
+
+.tableentite td{
+	font-size:18px;
+}
+
+.tableentitepfmp td{
+	
+	font-size:20px;
+}

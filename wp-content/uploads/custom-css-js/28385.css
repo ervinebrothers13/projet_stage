@@ -1,0 +1,130 @@
+<!-- start Simple Custom CSS and JS -->
+<style type="text/css">
+/* Ajouter votre code CSS ici.
+                     
+Par exemple:
+.exemple {
+    color: red;
+}
+
+Pour améliorer vos connaissances en CSS, visitez http://www.w3schools.com/css/css_syntax.asp
+
+Fin du commentaire */ 
+
+
+
+@media screen and (max-width: 1000px) {
+	
+	
+	
+}
+
+@media screen and (max-width: 600px) {
+ 
+	#main{
+		padding-left:0px!important;
+		padding-right:0px!important;
+	}
+	
+	.formconnect {
+   	 width: 100%!important;
+		padding: 0px 10px 30px 10px!important;
+	}
+	
+	.formconnect h1 {
+   
+    	font-size: 26px !important;
+	}
+	
+	#passwordforgetdiv.windowclose {
+		height: 120px!important;
+	}
+	
+	#createaccountdiv.windowclose {
+   	 height: 120px!important;
+	}
+	
+	#messageactivediv.windowclose {
+		height: 150px!important;
+	}
+	
+	
+	.articlecontent {
+		width: 100%!important;
+		margin: 0px!important;
+		padding: 10px!important;
+	}
+	
+	.offrecontentclass article {
+   
+		margin-bottom: 0px!important;
+	}
+	
+	.offrecontentclass .topcontent {
+    
+		margin-bottom: 0px!important;
+		padding: 10px!important;
+	}
+	
+	.offrecontentclass .topcontent .title {
+		font-size: 25px!important;
+
+	}
+	
+	.offrecontentclasspfmp .topcontent .title {
+  
+    font-size: 25px!important;
+}
+	
+	#articledescpfmp .partie1 {
+    margin-bottom: 30px!important;
+   
+}
+		#articledescpfmp .partie2 {
+    margin-bottom: 30px!important;
+   
+}
+	#articledescpfmp h1 {
+    padding: 20px!important;
+    
+}
+	#articledescpfmp .partie3 {
+    padding: 20px!important;
+		 margin-bottom: 30px!important;
+  
+}
+	
+	#articledescpfmp .partie3 table td {
+    padding:0!important;
+    font-size: 10px!important;
+}
+	
+	
+	#articledescpfmp h1 {
+   
+   	 	margin-bottom: 30px!important;
+   
+	}
+	
+}
+
+
+@media screen and (max-width: 450px) {
+ 
+	#passwordforgetdiv.windowclose {
+    height: 150px !important;
+}
+}
+
+@media screen and (max-width: 360px) {
+#createaccountdiv.windowclose {
+    height: 150px !important;
+}
+	
+	.table>tbody>tr>th, .table>thead>tr>th {
+    
+    font-size: 10px!important;
+}
+	
+}</style>
+<!-- end Simple Custom CSS and JS -->

@@ -1,0 +1,153 @@
+# Translation of Plugins - Image Widget - Stable (latest release) in French (France)
+# This file is distributed under the same license as the Plugins - Image Widget - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-02-04 06:40:46+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: fr\n"
+"Project-Id-Version: Plugins - Image Widget - Stable (latest release)\n"
+
+#. Author URI of the plugin
+msgid "https://evnt.is/1aor"
+msgstr "https://evnt.is/1aor"
+
+#. Author of the plugin
+msgid "The Events Calendar"
+msgstr "The Events Calendar"
+
+#: views/widget-admin.php:38
+msgid "Link Title"
+msgstr "Titre du lien"
+
+#: image-widget.php:596
+msgid "<p class=\"dashicons-before dashicons-star-filled\"><strong>Image Widget Plus</strong> - Add lightbox, slideshow, and random image widgets. <strong><a href=\"%s\" target=\"_blank\">Find out how!</a></strong></p>"
+msgstr "<p class=\"dashicons-before dashicons-star-filled\"><strong>Image Widget Plus</strong> - Ajoutez des widgets visionneuses, diaporamas et des images aléatoires. <strong><a href=\"%s\" target=\"_blank\">Apprenez comment !</a></strong></p>"
+
+#: image-widget.php:612
+msgid "Image Widget Plus"
+msgstr "Image Widget Plus"
+
+#: views/widget-admin.php:31
+msgid "A recommended HTML5 related terms list is available <a href=\"http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions\" target=\"_blank\">here</a>."
+msgstr "Une liste de termes HTML5 recommandés est disponible <a href=\"http://microformats.org/wiki/existing-rel-values#HTML5_link_type_extensions\" target=\"_blank\"> ici</a>."
+
+#: views/widget-admin.php:29
+msgid "Related"
+msgstr "Sur le même thème"
+
+#. Plugin URI of the plugin
+msgid "https://wordpress.org/plugins/image-widget/"
+msgstr "http://fr.wordpress.org/plugins/image-widget/"
+
+#: image-widget.php:416
+msgid "Custom"
+msgstr "Personnalisé"
+
+#: image-widget.php:415
+msgid "Large"
+msgstr "Grand"
+
+#: image-widget.php:414
+msgid "Medium"
+msgstr "Moyen"
+
+#: image-widget.php:413
+msgid "Thumbnail"
+msgstr "Miniature"
+
+#: image-widget.php:412
+msgid "Full Size"
+msgstr "Taille Originale"
+
+#: views/widget-admin.php:51
+msgid "Size"
+msgstr "Taille"
+
+#: views/widget-admin.php:40
+msgid "Link ID"
+msgstr "ID du lien"
+
+#: views/widget-admin.php:26 views/widget-admin.deprecated.php:49
+msgid "Alternate Text"
+msgstr "Texte alternatif"
+
+#: views/widget-admin.php:76 views/widget-admin.deprecated.php:46
+msgid "right"
+msgstr "droite"
+
+#: views/widget-admin.php:75 views/widget-admin.deprecated.php:45
+msgid "center"
+msgstr "centre"
+
+#: views/widget-admin.php:74 views/widget-admin.deprecated.php:44
+msgid "left"
+msgstr "gauche"
+
+#: views/widget-admin.php:73 views/widget-admin.deprecated.php:43
+msgid "none"
+msgstr "aucun"
+
+#: views/widget-admin.php:71 views/widget-admin.deprecated.php:41
+msgid "Align"
+msgstr "Aligner"
+
+#: views/widget-admin.php:66 views/widget-admin.deprecated.php:38
+msgid "Height"
+msgstr "Hauteur"
+
+#: views/widget-admin.php:63 views/widget-admin.deprecated.php:35
+msgid "Width"
+msgstr "Largeur"
+
+#: views/widget-admin.php:44 views/widget-admin.deprecated.php:32
+msgid "Open New Window"
+msgstr "Ouvrir une nouvelle fenêtre"
+
+#: views/widget-admin.php:43 views/widget-admin.deprecated.php:31
+msgid "Stay in Window"
+msgstr "Dans la même fenêtre"
+
+#: views/widget-admin.php:36 views/widget-admin.deprecated.php:28
+msgid "Link"
+msgstr "Lien"
+
+#: views/widget-admin.php:33 views/widget-admin.deprecated.php:25
+msgid "Caption"
+msgstr "Légende"
+
+#: views/widget-admin.deprecated.php:17
+msgid "Add Image"
+msgstr "Ajouter une image"
+
+#: views/widget-admin.deprecated.php:17
+msgid "Change Image"
+msgstr "Changer d’image"
+
+#: views/widget-admin.deprecated.php:13
+msgid "Image"
+msgstr "Image"
+
+#: views/widget-admin.php:23 views/widget-admin.deprecated.php:10
+msgid "Title"
+msgstr "Titre"
+
+#: image-widget.php:86 lib/ImageWidgetDeprecated.php:66
+msgid "Insert Into Widget"
+msgstr "Insérer dans le widget"
+
+#: image-widget.php:85 views/widget-admin.php:13
+msgid "Select an Image"
+msgstr "Sélectionner une image"
+
+#. Plugin Name of the plugin
+#: image-widget.php:41
+msgid "Image Widget"
+msgstr "Image Widget"
+
+#: image-widget.php:38
+msgid "Showcase a single image with a Title, URL, and a Description"
+msgstr "Affiche une seule image avec un titre, URL et une description"
