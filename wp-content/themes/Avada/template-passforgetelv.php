@@ -49,7 +49,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	
 
 	
-    <!--form creat compte-->
+    <!--création d'un nouveau mdp-->
     <div id="forgetpassworddiv" class="formconnect" >
         <form id="forgetpassword-form" method="POST"
               action="<?php echo get_template_directory_uri(); ?>/actiondev1.php?act=reinitpasswordelv">
