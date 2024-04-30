@@ -3,6 +3,7 @@ include_once("../../../wp-load.php");
 include_once("../../../wp-config.php");
 
 if (session_id() == "") session_start();
+
 if (!isset($_SESSION["hashsession"])) $_SESSION["hashsession"] = get_hash();
 
 //Récupération du mode d'action
@@ -14,9 +15,6 @@ if (array_key_exists('act', $_GET))
 //********************************************************************************************************************************
 // 												TRAITEMENT DES DONNEES
 //********************************************************************************************************************************
-
-//term Visiteur = ni usr_elv, ni usr_peda, ni usr_ent
-
 $balise = "";   //balise de repère
 
 switch ($action) {
@@ -56,14 +54,14 @@ switch ($action) {
         $urlok = "/espace-eleve/?msg=connected" . $redirect;
         $urlko = "/espace-eleve/";
         break;
-    //selon func registerelv > si fonctionne va sur $urlok sinon sur $urlko//écrit dans l'url du site
+    //si la func appelé est registerelv > si fonctionne va sur $urlok sinon sur $urlko// lien écrit dans l'url du site
     case "registerelv":
-
+    //correspond à l'action lancé dans le formulaire création compte (template-profilelv)
         $err = registerelv($_POST);
-        //si ok redirige vers page 'espace-eleve/onglet-create' avec un 'msg'-mailsend
+        //si ok redirige vers page 'espace-eleve/ong=create' avec un 'msg'-mailsend
         $urlok = "/espace-eleve/?ong=create&msg=mailsend";
         $urlko = "/espace-eleve/?ong=create";
-        //repère la balise correspondante sur ma page et redirige vers..
+        //repère la balise correspondante sur ma page et redirige vers elle
         $balise = "#createaccountdiv";
         break;
     case "accountactiveelv":

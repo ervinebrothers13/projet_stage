@@ -1363,6 +1363,7 @@ if (!defined('ABSPATH')) {
                  echo "windowclose";
              } ?>" data-heightmin="120" data-heightmax="360">
             <h1>Vous êtes déjà inscrit?</h1>
+            <!--en gros c'est un bloc lorsque je clique dessus, il s'ouvre grâce à "connexiondiv" (code javascrip)-->
             <div class="bouttonconnex2 <?php if (!isset($_GET["ong"]) or (isset($_GET["ong"]) && $_GET["ong"] == "connexion")) echo "displaynone"; ?>"
                  onclick="connexiondiv();">Se connecter avec mes identifiants
             </div>
@@ -1459,21 +1460,23 @@ if (!defined('ABSPATH')) {
         </div>
 
         <!--formulaire creation compte-->
+        <!-- en bref, je définis mon bloc en onglet "create" avec une balise #createaccountdiv-->
         <div id="createaccountdiv" class="formconnect <?php if (isset($_GET["ong"]) && $_GET["ong"] == "create") {
-            echo "windowopen";
+            echo "windowopen"; //ouverture du bloc
         } else {
-            echo "windowclose";
+            echo "windowclose"; //fermeture du bloc
         } ?>" data-heightmin="170" data-heightmax="1050">
+            <!--txt d'affichage quand bloc fermé-->
             <h1>Vous n'avez pas de compte?</h1>
             <div class="bouttonconnex2 <?php if (isset($_GET["ong"]) && $_GET["ong"] == "create") echo "displaynone"; ?>"
                  onclick="createaccountdiv();" href="">Créer un compte
-            </div>
+            </div><!--function js "createaccountdiv()" -->
+
+            <!-- redirige vers url '/actiondev1.php?act=registerelv' en cas de creation de compte//en bref appel ma fonction 'registerelv'-->
             <form id="createaccountelv-form" method="POST"
                   action="<?php echo get_template_directory_uri(); ?>/actiondev1.php?act=registerelv">
                 <label>Pour pouvoir postuler sur nos offres de stage, vous devez créer un compte.</label>
-                <label><a href="http://localhost/monstage/politique-de-confidentialite/" target=_blank>Lire la Politique
-                        de confidentialité <i class="fa fa-external-link"
-                                              aria-hidden="true"></i></a>
+                <label><a href="http://localhost/monstage/politique-de-confidentialite/" target=_blank>Lire la Politique de confidentialité <i class="fa fa-external-link" aria-hidden="true"></i></a>
                     pour connaître les modalités d'utilisations de mes informations récoltées.</label>
                 <i>Sauf mention contraire, tous les champs sont obligatoires.</i>
                 <br><br>

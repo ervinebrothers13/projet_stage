@@ -117,9 +117,9 @@ $(document).ready(function () {
     $('#login-form-peda').validate({
         rules: {
             //ligne pour vérifier si mail_peda > ac-polynesie.pf
-            useremail: { required: true, vMail: true, vMailpeda: true},
+            // useremail: { required: true, vMail: true, vMailpeda: true},
 
-            // useremail: {required: true, vMail: true},
+            useremail: {required: true, vMail: true},
             userpassword: {required: true}
 
         },
@@ -190,9 +190,10 @@ $(document).ready(function () {
     $('#createaccountpeda-form').validate({
         rules: {
             //ligne pour vérifier si mail_peda > ac-polynesie.pf
-            useremailcrea: { required: true, vMail: true, vMailpeda: true},
+            // useremailcrea: { required: true, vMail: true, vMailpeda: true},
 
-            // useremailcrea: {required: true, vMail: true},
+            useremailcrea: { required: true, vMail: true},
+
             usernom: {required: true},
             userprenom: {required: true},
             checkcond: {required: true},

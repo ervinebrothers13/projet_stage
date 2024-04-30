@@ -223,26 +223,23 @@ function seconnecterurlelv($tab)
 // Description : Création d'un compte élève
 //********************************************************************
 function registerelv($tab) //form-crea-elv
-
 {
-
     try {
         //Connexion à la base de données
         $conn = ConnBDDpdo();
-
         if (!session_id()) {
             session_start();
         }
         //initialisation du message d'erreur
-        $err = "";              //var en cas d'erreur
-
-        if (!empty($conn)) {    //vérifie si la connexion à la base de données a été établie avec succès en vérifiant si la variable $conn n'est pas vide
-
-            if (isset($tab['useremailcrea'], $tab['usercommune'], $tab['usernom'], $tab['userprenom'], $tab['userdatenais'], $tab['password1'])) { //si les champs de mon formulaire sont remplis; alors..
+        $err = "";
+        //vérifie si la connexion à la base de données a été établie avec succès en vérifiant si la variable $conn n'est pas vide
+        if (!empty($conn)) {
+            //si les champs de mon formulaire sont remplis; alors stock mes valeurs des champs dans des variables
+            if (isset($tab['useremailcrea'], $tab['usercommune'], $tab['usernom'], $tab['userprenom'], $tab['userdatenais'], $tab['password1'])) {
                 // Formatage et validation des donn�es du formulaire
                 $usrmail = filter_var($tab['useremailcrea'], FILTER_VALIDATE_EMAIL);    //filtre champs maiil
                 $usrmail = filter_var($usrmail, FILTER_VALIDATE_EMAIL);
-                $usrcommune = $tab['usercommune'];    //stock mes valeurs de champs_form dans des variables
+                $usrcommune = $tab['usercommune'];
                 $usrnom = stripslashes((filter_var($tab['usernom'], FILTER_SANITIZE_STRING)));
                 $usrnom = ucfirst($usrnom);                                   //mets en maj la 1e lettre
                 $usrprenom = stripslashes((filter_var($tab['userprenom'], FILTER_SANITIZE_STRING)));
@@ -254,12 +251,12 @@ function registerelv($tab) //form-crea-elv
                 $userclass = $tab['userclass'];
                 $userdiplome = stripslashes((filter_var($tab['userdiplome'], FILTER_SANITIZE_STRING)));
 
-                if ($tab['password1'] != $tab['password2']) {   //compare les 2 mdp tapés, si non identique = error
+                //compare les 2 mdp tapés, si non identique = error
+                if ($tab['password1'] != $tab['password2']) {
 
                     $err = "errorsame";
                     return $err;
                 }
-
                 // Cr�ation d'un SALT al�atoire
                 $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
                 // Cryptage PHP du mot de passe
@@ -267,9 +264,10 @@ function registerelv($tab) //form-crea-elv
                 $usrhash = hash('sha512', $usrmail . $random_salt); //hash le mail du user
                 $activetoken = hash('sha512', $mdphash . $usrhash); //hash les 2 var déjà hashé = 2*plus de sécu
 
-                //req sql pour insérer les infos dans bdd->table->eleve //diff champs de ma table eleve
+                //req préparée pour insérer les infos dans bdd->table->eleve //diff champs de ma table eleve
                 $stmt = $conn->prepare("INSERT INTO eleve (elv_mail, elv_password, elv_hash, elv_token, elv_nom, elv_pren, elv_sexe, elv_com, elv_datenaiss, elv_uai, elv_class, elv_diplome, d_crea) VALUES (:elv_mail, :elv_password, :elv_hash, :elv_token, :elv_nom, :elv_pren, :elv_sexe, :elv_com, :elv_datenaiss, :elv_uai, :elv_class, :elv_diplome, NOW())");
-                $stmt->bindParam(':elv_mail', $usrmail);    //stock ma var $usrmail dans un param :elv_mail //param utilisé pour l'insert° dans bdd
+                //stock ma var $usrmail dans un param :elv_mail //param utilisé pour l'insert° dans bdd
+                $stmt->bindParam(':elv_mail', $usrmail);
                 $stmt->bindParam(':elv_password', $mdphash);
                 $stmt->bindParam(':elv_hash', $random_salt);     //utilisé pour reconnaître le hash du user
                 $stmt->bindParam(':elv_token', $activetoken);    //utilisé pour lien activ cmpt
@@ -284,24 +282,24 @@ function registerelv($tab) //form-crea-elv
                 $stmt->execute();
 
                 //génère le lien de verif
-                $url = get_template_directory_uri() . "/actiondev1.php?act=accountactiveelv&token=" . $activetoken;  //appel fonc°accountactiveelv lorsque je clique sur le lien//redirige vers actiondev1
+                //appel fonc°accountactiveelv lorsque je clique sur le lien//redirige vers actiondev1
+                $url = get_template_directory_uri() . "/actiondev1.php?act=accountactiveelv&token=" . $activetoken;
+                //url mis dans une var de session
                 $_SESSION["urlcrea_elv"] = $url;
 
                 //message-validation-envoyé
-                $to = $usrmail; //envoie à $usrmail == mail du user
-                $subject = 'Validation de compte sur monstage.education.pf'; //objet du mail
-                //msg mail contenu
+                $to = $usrmail;
+                $subject = 'Validation de compte sur monstage.education.pf';
+                //contenu du message
                 $message = "Bonjour,<br>Veuillez trouver ci-dessous le lien pour activer votre compte sur monstage.education.pf.";
                 $message .= "<p><a href='" . $url . "'>Activer mon compte</a></p>"; //lien activ
                 $message .= "<p>Cordialement,</p>";
                 $message .= "<p>DGEE - Direction Générale de l'Education et des enseignements</p>";
                 $message .= "<p></p><p><i>Ce mail a été envoyé automatiquement via une application, merci de ne pas y répondre</i>.</p>";
-
-                $headers = array('Content-Type: text/html; charset=UTF-8'); //syntaxe d'écriture du mail//normalement..prends bien en compte tout les caract du clavier
-
+                //syntaxe d'écriture du mail//normalement..prends bien en compte tout les caract du clavier
+                $headers = array('Content-Type: text/html; charset=UTF-8');
                 //envoie de mail normalement ACTIF en localhost
-                wp_mail($to, $subject, $message, $headers); //plug wp envoie msg de mail_site --> mail_user($to) avec objet du mail($subject) et le contenu ($message)
-
+                wp_mail($to, $subject, $message, $headers);
 
                 $conn = null; //Fermeture de la connexion
             } else
@@ -323,37 +321,31 @@ function registerelv($tab) //form-crea-elv
 //               pwd -- Mot de passe saisi par l'utilisateur  
 // Description : Activation du compte d'un élève
 //********************************************************************
-function accountactiveelv($tab)
-{
+function accountactiveelv($tab){
     try {
         //initialisation du message d'erreur//cette var est repris pour afficher les erreurs possibles qui peuvent arriver
         $err = "";
         //connexion � la base de donn�es
-        $conn = ConnBDDpdo();   //stock la connexion à la bdd dans var $conn
-
+        $conn = ConnBDDpdo();
         if (!empty($conn)) {
-
-            //Ouverture d'une transaction
-            //$conn->beginTransaction();
-
+            //pour l'élève concerné, vérifie si le "token" existe, n'est pas vide et est différent de "null"
             if (isset($tab['token']) and ($tab['token'] != "" and $tab['token'] != null)) {
-
-                $activetoken = $tab['token'];  //stock sa val dans var $activetoken
-
-                $stmt = $conn->prepare("SELECT * FROM eleve WHERE eleve.elv_token = :elv_token"); //req sql qui verif le token_elv où $activetoken est semblable
+                //stock sa val dans var $activetoken
+                $activetoken = $tab['token'];
+                //req sql qui verifie si le champ "token_elv" (dans base de donée) où $activetoken est semblable
+                $stmt = $conn->prepare("SELECT * FROM eleve WHERE eleve.elv_token = :elv_token");
                 $stmt->bindParam(':elv_token', $activetoken);
                 $stmt->execute();
 
-
-                if ($stmt->rowCount() > 0) {    //si il y a bien plusieurs requêtes envoyées
-
+                //si il y a bien plusieurs requêtes envoyées
+                if ($stmt->rowCount() > 0) {
                     $res = $stmt->fetch(PDO::FETCH_ASSOC);   //pour recup info dans bdd
-                    // Modification (UPDATE) de l'utilisateur dans la BDD
-                    $stmt = $conn->prepare("UPDATE eleve SET elv_token=null WHERE eleve.elv_id=:elv_id and eleve.elv_token = :activetoken");//le chmp elv_token = NULL quand l'elv_user click sur le lien d'activ
+                    // Modification (UPDATE) de token de l'élève dans la BDD
+                    //le chmp elv_token passe à NULL quand l'elv_user click sur le lien d'activ
+                    $stmt = $conn->prepare("UPDATE eleve SET elv_token=null WHERE eleve.elv_id=:elv_id and eleve.elv_token = :activetoken");
                     $stmt->bindParam(':activetoken', $activetoken); //stock la var $activetoken dans param :activetoken
                     $stmt->bindParam(':elv_id', $res['elv_id']);    //stock la reponse de bb du chhmp elv_id dans param :elv_id
                     $stmt->execute();
-
                     $stmt->closeCursor();
 
                     //recup les info_elv dans bdd
@@ -362,13 +354,10 @@ function accountactiveelv($tab)
                     $usr_pwd = $res['elv_password'];
                     $usr_salt = $res['elv_hash'];
                     $uai_rne = $res['elv_uai'];
-
                     $suspend = $res['suspend'];
 
                     if ($suspend == "0") {
-
                         close_session();
-
                         $usr_browser = $_SERVER['HTTP_USER_AGENT']; // Obtention de la chaine user-agent de l'utilisateur.
                         $usr_id = preg_replace("/[^0-9]+/", "", $usr_id); // protection XSS si l'on doit afficher cette valeur
                         $usr_id = encryptIt($usr_id, $_SESSION["hashsession"]);     //$encrypt la SESSION activ dans var $usr_id

@@ -45,13 +45,13 @@ if (version_compare($GLOBALS['wp_version'], AVADA_MIN_WP_VER_REQUIRED, '<') || v
 
 //rajoute table_ent en attente sur menu Avada
 add_action('admin_menu', 'entreprisewait');
-function entreprisewait() { 
-  add_menu_page( 
-      'Entreprise en attente', 
-      'Entreprise en attente', 
-      'edit_posts', 
-      'entrepris_ewait', 
-      'entrepris_ewait_call', 
+function entreprisewait() {
+  add_menu_page(
+      'Entreprise en attente',
+      'Entreprise en attente',
+      'edit_posts',
+      'entrepris_ewait',
+      'entrepris_ewait_call',
       'dashicons-media-spreadsheet',
 	  2
      );
@@ -59,13 +59,13 @@ function entreprisewait() {
 
 //rajoute table_ent confirm sur menu Avada
 add_action('admin_menu', 'lstentreprise');
-function lstentreprise() { 
-  add_menu_page( 
-      'Liste des entreprises', 
-      'Liste des entreprises', 
-      'edit_posts', 
-      'entrepris_list', 
-      'entrepris_list_call', 
+function lstentreprise() {
+  add_menu_page(
+      'Liste des entreprises',
+      'Liste des entreprises',
+      'edit_posts',
+      'entrepris_list',
+      'entrepris_list_call',
       'dashicons-media-spreadsheet',
 	  2
      );
@@ -73,13 +73,13 @@ function lstentreprise() {
 
 //rajoute table_elv sur menu Avada
 add_action('admin_menu', 'lsteleve');
-function lsteleve() { 
-  add_menu_page( 
-      'Liste des élèves', 
-      'Liste des élèves', 
-      'edit_posts', 
-      'eleve_list', 
-      'eleve_list_call', 
+function lsteleve() {
+  add_menu_page(
+      'Liste des élèves',
+      'Liste des élèves',
+      'edit_posts',
+      'eleve_list',
+      'eleve_list_call',
       'dashicons-media-spreadsheet',
 	  2
      );
@@ -87,57 +87,57 @@ function lsteleve() {
 
 //rajoute table_peda sur menu Avada
 add_action('admin_menu', 'lstpeda');
-function lstpeda() { 
-  add_menu_page( 
-      'Liste des professeurs', 
-      'Liste des professeurs', 
-      'edit_posts', 
-      'peda_list', 
-      'peda_list_call', 
+function lstpeda() {
+  add_menu_page(
+      'Liste des professeurs',
+      'Liste des professeurs',
+      'edit_posts',
+      'peda_list',
+      'peda_list_call',
       'dashicons-media-spreadsheet',
 	  2
      );
 }
 
- 
 
-//encryptage - chiffrement
+
+//encryptage - chiffrement - session
 function encryptIt( $q, $cryptKey ) {
-    
+
 	$ciphering = "AES-128-CTR";
 	$iv = '1234517891011121';
 	$iv_length = openssl_cipher_iv_length($ciphering);
 	$options = 0;
-	
+
 	$qEncoded = openssl_encrypt($q, $ciphering,$cryptKey, $options, $iv);
 
 	$qEncoded = str_replace(array('+','/'),array('-','_'),$qEncoded);
-  
+
 	return( $qEncoded );
 }
 
 //decryptage
 function decryptIt( $q,$cryptKey ) {
-    
+
 	$q = str_replace(array('-','_'),array( '+','/'),$q);
-	
+
 	$ciphering = "AES-128-CTR";
 	$iv = '1234517891011121';
 	$iv_length = openssl_cipher_iv_length($ciphering);
 	$options = 0;
 	$qDecoded=openssl_decrypt ($q, $ciphering,$cryptKey, $options, $iv);
 
-   
+
     return( $qDecoded );
 }
 
 //hashage
 function get_hash(){
-	
+
 	$random_salt = str_replace(" ","",hash('sha512', uniqid(openssl_random_pseudo_bytes(4), TRUE)));
 	$random_salt = str_replace( array( '=','%', '@', '\'', ';', '<', '>' ), '', $random_salt);
 	return $random_salt;
-	
+
 }
 
 
@@ -389,17 +389,21 @@ function session_init()
 
 add_action('init', 'session_init');
 
-
+/*Connexion à ma base de donnée*/
 function ConnBDDpdo()
-{  /*connexion à ma base de donnée bb_stage_doi*/
+{
     try {
 
-        $dbconn = new PDO("mysql:host=" . DB_HOST2 . ";dbname=" . DB_NAME2, DB_USER2, DB_PASSWORD2, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET lc_time_names='fr_FR'", PDO::MYSQL_ATTR_LOCAL_INFILE => true));
+        $dbconn = new PDO("mysql:host=" . DB_HOST2 . ";dbname=" . DB_NAME2, DB_USER2, DB_PASSWORD2,
+            array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET lc_time_names='fr_FR'", PDO::MYSQL_ATTR_LOCAL_INFILE => true));
+
         $dbconn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$dbconn->exec('SET NAMES utf8');
 
     } catch (PDOException|Exception $e) {
         $dbconn = null;
+
+        //en cas d'erreur affiche le fichier et la ligne où il y a un bug
         echo $e->getMessage() . " | Fichier :" . $e->getFile() . " | Ligne :" . $e->getLine();
     }
     return $dbconn;
@@ -418,23 +422,23 @@ function ConnBDDpdo()
 //*******************************************************************************
 function BLst($tbl, $chp1, $chp2, $id, $order='', $indact='', $typ='', $chp3='', $val=''){
 	$arr = array();
-	$result = empty($typ) ? "<option value=''></option>\n" : ""; 
+	$result = empty($typ) ? "<option value=''></option>\n" : "";
 
 	try{
 		//Connexion à la base de données
 		$conn = ConnBDDpdo();
-	
+
 		if(!empty($conn)){
-			//requête de sélection des données  
+			//requête de sélection des données
 			$sql = "SELECT DISTINCT ".$chp1. " as ID,".$chp2." as LIB FROM ".$tbl." WHERE 1=1";
 			if (!empty($chp3) && !empty($val))
 				$sql .= " AND ".$chp3." = '".$val."'";
 			if (!empty($indact))
 				$sql .= " AND IND_ACT = 0"; //Pour les tables de nomenclatures, on sélectionne uniquement les codes actifs
 			$sql.= empty($order) ? " ORDER BY LIB" : ($order>1 ? " ORDER BY order_id DESC, LIB" : " ORDER BY ID");
-			
+
 			foreach  ($conn->query($sql) as $row) {
-				if ($row['ID'] == $id) 
+				if ($row['ID'] == $id)
 					$result .= "<option value='".$row['ID']."' selected>".(stripslashes($row['LIB']))."</option>\n";
 				else
 					$result .= "<option value='".$row['ID']."'>".(stripslashes($row['LIB']))."</option>\n";
@@ -458,9 +462,9 @@ function BLst($tbl, $chp1, $chp2, $id, $order='', $indact='', $typ='', $chp3='',
 //              $typ -- Type de formattage (sql ou html)
 // Description : Formate une date au format voulu
 //******************************************************
-function fDate($val,$typ){ 
+function fDate($val,$typ){
 	$newdate = $typ=='sql' ? NULL : "";
-	
+
 	if ($val != ""){
 		switch($typ){
 			case 'sql':
@@ -499,9 +503,9 @@ function lstData($typ,$tab=""){
 	try{
 		//Connexion à la base de données
 		$conn = ConnBDDpdo();
-	
+
 		if(!empty($conn)){
-		
+
 			switch($typ){
 					//---- UTILISATEURS ----
 				case "sexe":
@@ -525,32 +529,32 @@ function lstData($typ,$tab=""){
 				case "stagenotpublish":
 					$sql = "SELECT stage.stage_id, type_stage.type_lib, secteur.sect_lib, stage.metier, stage.etape FROM stage left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.publish=0 and stage.ent_id =".$tab;
 				break;
-                
+
 				case "alllststage3eme":
-				
+
 					if($tab[0]=="-1"){
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=1 and stage.publish=1 and stage.suspend=0 ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}else{
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=1 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and stage.suspend=0  ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}
-					
+
 				break;
 				case "alllststagebts":
-				
+
 					if($tab[0]=="-1"){
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=3 and stage.publish=1 and stage.suspend=0  ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}else{
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=3 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and stage.suspend=0  ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}
-					
+
 				break;
 				case "lststage3eme":
 					$sql = "SELECT stage.stage_id, type_stage.type_lib, secteur.sect_lib, stage.metier, stage.etape,stage.publish FROM stage left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=1 and stage.suspend=0 and stage.ent_id =".$tab." order by stage.publish desc";
@@ -559,21 +563,21 @@ function lstData($typ,$tab=""){
 					$sql = "SELECT stage.stage_id, type_stage.type_lib, secteur.sect_lib, stage.metier, stage.etape,stage.publish FROM stage left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=3 and stage.suspend=0 and stage.ent_id =".$tab." order by stage.publish desc";
 				break;
 				case "alllststagepfmp":
-					
+
 					if($tab[0]=="-1"){
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=2 and stage.publish=1 and stage.suspend=0 ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}else{
-						
+
 						$sql = "SELECT entreprise.*, stage.*, type_stage.type_lib, secteur.sect_lib,commune.Ile,commune.Geo FROM stage left join commune on commune.IDGeo=stage.stage_com left join entreprise on entreprise.ent_id=stage.ent_id left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=2 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and stage.suspend=0  ORDER BY stage.d_crea desc LIMIT ".$tab[2]." OFFSET ".$tab[1];
-						
+
 					}
-					
-					
-					
+
+
+
 				break;
-				
+
 				case "lststagepfmp":
 					$sql = "SELECT stage.stage_id, type_stage.type_lib, secteur.sect_lib, stage.metier, stage.etape,stage.publish FROM stage left join type_stage on type_stage.type_id=stage.type_id left join secteur on secteur.sect_id=stage.dom_id and secteur.typ_id=stage.type_id WHERE stage.type_id=2 and stage.suspend=0 and stage.ent_id =".$tab." order by stage.publish desc";
 				break;
@@ -616,15 +620,15 @@ function lstData($typ,$tab=""){
 				case "mesconventionselv":
 					$sql = "SELECT type_stage.type_lib,candidature.*,stage.metier, stage.dispo, eleve.elv_nom, eleve.elv_pren,convention.*,convention.ent_ok FROM convention left join candidature on candidature.cand_id=convention.cand_id left join stage on stage.stage_id=candidature.stage_id left join type_stage on type_stage.type_id=stage.type_id left join eleve on eleve.elv_id=candidature.elv_id  where convention.elv_id=".$tab;
 				break;
-				
-				
+
+
 			}
 			$stmt = $conn->prepare($sql);
 			$stmt->execute();
 			$res = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
 			$conn = null;
-			
+
 			return $res;
 		}
 		else {
@@ -647,10 +651,10 @@ function recData($typ,$tab=""){
 	try{
 		//Connexion à la base de données
 		$conn = ConnBDDpdo();
-	
+
 		if(!empty($conn)){
-			//requête de sélection des données		
-			switch($typ){					
+			//requête de sélection des données
+			switch($typ){
 				case "eleve":
 					$sql = "SELECT eleve.*,uai.*,classe.class_lib FROM eleve left join classe on classe.class_id=eleve.elv_class left join uai on uai.uai_rne=eleve.elv_uai WHERE eleve.elv_id =".$tab;
 				break;
@@ -685,45 +689,45 @@ function recData($typ,$tab=""){
 					$sql = "SELECT stage_horaire.* FROM stage_horaire WHERE stage_horaire.day_id=6 and stage_horaire.stage_id =".$tab;
 				break;
 				case "lstoffre3emesize":
-				
+
 					if($tab=="-1"){
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=1 and stage.publish=1 and suspend=0";
-						
+
 					}else{
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=1 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and suspend=0";
-						
+
 					}
-					
+
 				break;
 				case "lstoffrepfmpsize":
-					
+
 					if($tab=="-1"){
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=2 and stage.publish=1 and suspend=0";
-						
+
 					}else{
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=2 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and suspend=0";
-						
+
 					}
-					
-					
-					
+
+
+
 				break;
 				case "lstoffrebtssize":
-				
+
 					if($tab=="-1"){
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=3 and stage.publish=1 and suspend=0";
-						
+
 					}else{
-						
+
 						$sql = "SELECT count(*) as NB FROM stage WHERE stage.type_id=3 and stage.dom_id IN (".$tab[0].") and stage.publish=1 and suspend=0";
-						
+
 					}
-					
+
 				break;
 				case "domaine":
 					$sql = "SELECT secteur.* FROM secteur WHERE secteur.typ_id=2 and secteur.sect_id =".$tab;
@@ -748,53 +752,53 @@ function recData($typ,$tab=""){
 				break;
 				case "entreprisenotificationcand":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_ent IS NULL and stage.ent_id =".$tab;
-				
+
 				break;
 				case "entreprisenotificationconv":
 					$sql = "SELECT COUNT(*) as NB FROM convention left join candidature on candidature.cand_id=convention.cand_id left join stage on stage.stage_id=candidature.stage_id WHERE convention.notif_ent IS NULL and stage.ent_id =".$tab;
-				
+
 				break;
 				case "elevenotificationcand1":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_elv IS NULL and stage.type_id=1 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "elevenotificationcand2":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_elv IS NULL and stage.type_id=2 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "elevenotificationcand3":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_elv IS NULL and stage.type_id=3 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "elevenotificationconv":
 					$sql = "SELECT COUNT(*) as NB FROM convention WHERE convention.notif_elv IS NULL and convention.elv_id =".$tab;
-				
+
 				break;
 				case "pedanotificationcand1":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_peda IS NULL and stage.type_id=1 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "pedanotificationcand2":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_peda IS NULL and stage.type_id=2 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "pedanotificationcand3":
 					$sql = "SELECT COUNT(*) as NB FROM candidature left join stage on stage.stage_id=candidature.stage_id WHERE candidature.notif_peda IS NULL and stage.type_id=3 and  candidature.elv_id=".$tab;
-				
+
 				break;
 				case "pedanotificationconv":
 					$sql = "SELECT COUNT(*) as NB FROM convention WHERE convention.notif_peda IS NULL and convention.elv_id =".$tab;
-				
+
 				break;
                 /********NOMENCLATURE**********/
-				              
+
             }
 			$stmt = $conn->prepare($sql);
 			$stmt->execute();
 			$res = $stmt->fetch(PDO::FETCH_ASSOC);
 			$stmt->closeCursor();
 			$conn = null;
-			
+
 			return $res;
 		}
 		else {
@@ -809,9 +813,9 @@ function recData($typ,$tab=""){
 
 
 function close_session(){
-	
+
 	//$_SESSION = array();
-	// récupérer les paramètres du cookie 
+	// récupérer les paramètres du cookie
 	//$params = session_get_cookie_params();
 	// Effacer le cookie actuel.
 	//setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
@@ -820,66 +824,66 @@ function close_session(){
 	unset($_SESSION['elv_string']);
 	unset($_SESSION['elv_uai']);
 	unset($_SESSION['elv_mail']);
-	
+
 	unset($_SESSION['ent_id']);
 	unset($_SESSION['ent_string']);
 	unset($_SESSION['ent_mail']);
-	
+
 	unset($_SESSION['peda_id']);
 	unset($_SESSION['peda_string']);
 	unset($_SESSION['peda_mail']);
-	
+
 	unset($_SESSION['user_typ']);
-	
-	
-	unset($_COOKIE['pseudocookieelv']); 
-	setcookie('pseudocookieelv', '', -1, '/'); 
-	unset($_COOKIE['pseudocookieent']); 
-	setcookie('pseudocookieent', '', -1, '/'); 
-	unset($_COOKIE['pseudocookiepeda']); 
-	setcookie('pseudocookiepeda', '', -1, '/'); 
-	unset($_COOKIE['passwordcookieelv']); 
-	setcookie('passwordcookieelv', '', -1, '/'); 
-	unset($_COOKIE['passwordcookieent']); 
-	setcookie('passwordcookieent', '', -1, '/'); 
-	unset($_COOKIE['passwordcookiepeda']); 
+
+
+	unset($_COOKIE['pseudocookieelv']);
+	setcookie('pseudocookieelv', '', -1, '/');
+	unset($_COOKIE['pseudocookieent']);
+	setcookie('pseudocookieent', '', -1, '/');
+	unset($_COOKIE['pseudocookiepeda']);
+	setcookie('pseudocookiepeda', '', -1, '/');
+	unset($_COOKIE['passwordcookieelv']);
+	setcookie('passwordcookieelv', '', -1, '/');
+	unset($_COOKIE['passwordcookieent']);
+	setcookie('passwordcookieent', '', -1, '/');
+	unset($_COOKIE['passwordcookiepeda']);
 	setcookie('passwordcookiepeda', '', -1, '/');
-	
-	
+
+
 }
 
 /***********CONNECT WITH COOKIE********************/
 
 function setconnectfromcookie(){
-	
+
 	try {
-         
+
 		$conn = ConnBDDpdo();
 		$err="";
 		if(!empty($conn)){
-				
+
 			if(isset($_COOKIE["pseudocookieelv"]) and isset($_COOKIE["passwordcookieelv"])){
-						
+
 				$usrlg=$_COOKIE["pseudocookieelv"];
 				$password=$_COOKIE["passwordcookieelv"];
-				
-				$sql = "SELECT * FROM eleve WHERE eleve.elv_mail = :elv_mail LIMIT 1"; 
+
+				$sql = "SELECT * FROM eleve WHERE eleve.elv_mail = :elv_mail LIMIT 1";
 				$stmt = $conn->prepare($sql);
 				$stmt->bindParam(':elv_mail', $usrlg);
 				$stmt->execute();
 				$res = $stmt->fetch(PDO::FETCH_ASSOC);
 				$stmt->closeCursor();
-					
+
 				if(!empty($res)){
-					
+
 					$usr_id = $res['elv_id'];
 					$usr_mail = $res['elv_mail'];
 					$usr_pwd = $res['elv_password'];
 					$usr_salt = $res['elv_hash'];
 					$uai_rne = $res['elv_uai'];
-						
-					if($usr_pwd == $password) { 
-					
+
+					if($usr_pwd == $password) {
+
 						$usr_browser = $_SERVER['HTTP_USER_AGENT']; // Obtention de la chaine user-agent de l'utilisateur.
 						$usr_id = preg_replace("/[^0-9]+/", "", $usr_id); // protection XSS si l'on doit afficher cette valeur
 						$usr_id=encryptIt($usr_id,$_SESSION["hashsession"]);
@@ -888,32 +892,32 @@ function setconnectfromcookie(){
 						$_SESSION['elv_uai'] = $uai_rne;
 						$_SESSION['user_typ'] = 1;
 						$_SESSION['elv_mail'] = $usr_mail;
-						
-					 
+
+
 					}else
-						$err = "lgpwd"; 
-						
+						$err = "lgpwd";
+
 				}
-				
+
 			}else if(isset($_COOKIE["pseudocookieent"],$_COOKIE["passwordcookieent"])){
-						
+
 				$usrlg=$_COOKIE["pseudocookieent"];
 				$password=$_COOKIE["passwordcookieent"];
-				
+
 				$stmt = $conn->prepare("SELECT * FROM entreprise WHERE entreprise.ent_mail = :ent_mail LIMIT 1");
 				$stmt->bindParam(':ent_mail', $usrlg);
 				$stmt->execute();
 				$res = $stmt->fetch(PDO::FETCH_ASSOC);
 				$stmt->closeCursor();
-				
+
 				if(!empty($res)){
 						$usr_id = $res['ent_id'];
 						$usr_mail = $res['ent_mail'];
 						$usr_pwd = $res['ent_password'];
 						$usr_salt = $res['ent_hash'];
-						
-						if($usr_pwd == $password) { 
-						
+
+						if($usr_pwd == $password) {
+
 							$usr_browser = $_SERVER['HTTP_USER_AGENT']; // Obtention de la chaine user-agent de l'utilisateur.
 							$usr_id = preg_replace("/[^0-9]+/", "", $usr_id); // protection XSS si l'on doit afficher cette valeur
 							$usr_id=encryptIt($usr_id,$_SESSION["hashsession"]);
@@ -921,33 +925,33 @@ function setconnectfromcookie(){
 							$_SESSION['ent_string'] = hash('sha512', $usr_pwd.$usr_browser);
 							$_SESSION['user_typ'] = 2;
 							$_SESSION['ent_mail'] = $usr_mail;
-							
-						 
+
+
 						}else
-							$err = "lgpwd"; 
+							$err = "lgpwd";
 				}
-			
+
 			}else if(isset($_COOKIE["pseudocookiepeda"]) and isset($_COOKIE["passwordcookiepeda"])){
-					
+
 				$usrlg=$_COOKIE["pseudocookiepeda"];
 				$password=$_COOKIE["passwordcookiepeda"];
-				
-				$sql = "SELECT * FROM pedagogique WHERE pedagogique.peda_mail = :peda_mail LIMIT 1"; 
+
+				$sql = "SELECT * FROM pedagogique WHERE pedagogique.peda_mail = :peda_mail LIMIT 1";
 				$stmt = $conn->prepare($sql);
 				$stmt->bindParam(':peda_mail', $usrlg);
 				$stmt->execute();
 				$res = $stmt->fetch(PDO::FETCH_ASSOC);
 				$stmt->closeCursor();
-					
+
 				if(!empty($res)){
 						$usr_id = $res['peda_id'];
 						$usr_mail = $res['peda_mail'];
 						$usr_pwd = $res['peda_password'];
 						$usr_salt = $res['peda_hash'];
 						$uai_rne = $res['peda_uai'];
-							
-						if($usr_pwd == $password) { 
-						
+
+						if($usr_pwd == $password) {
+
 							$usr_browser = $_SERVER['HTTP_USER_AGENT']; // Obtention de la chaine user-agent de l'utilisateur.
 							$usr_id = preg_replace("/[^0-9]+/", "", $usr_id); // protection XSS si l'on doit afficher cette valeur
 							$usr_id=encryptIt($usr_id,$_SESSION["hashsession"]);
@@ -956,23 +960,23 @@ function setconnectfromcookie(){
 							$_SESSION['peda_uai'] = $uai_rne;
 							$_SESSION['user_typ'] = 3;
 							$_SESSION['peda_mail'] = $usr_mail;
-							
-						 
+
+
 						}else
-							$err = "lgpwd"; 
+							$err = "lgpwd";
 				}
-			
+
 			}
-				
-				$err = "lgusr"; // Utilisateur inexistant. 
-				
+
+				$err = "lgusr"; // Utilisateur inexistant.
+
 				$conn = null; //Fermeture de la connexion
-				
-			
+
+
 		}
 		else
 			$err = "connerr"; // Problème de connexion
-			
+
 		return $err;
 	}
 	catch(PDOException $e){
@@ -985,7 +989,7 @@ function setconnectfromcookie(){
 
 
 function getWeek(){
-	
+
 $tabweeks=array();
 
 $currYear = date("Y");
@@ -996,20 +1000,20 @@ $nextSunday     = strtotime('friday', $nextMonday);
 
 $number=1;
 while (date('Y', $nextMonday) == $currYear) {
-	
+
    //$week=date('d/m/Y', $nextMonday).'-'.date('d/m/Y', $nextSunday);
-   
+
 	$array=array($number,date('d/m/Y', $nextMonday),date('d/m/Y', $nextSunday));
-	
+
 	if($nextMonday>strtotime("now"))array_push($tabweeks,$array);
-	
-	
+
+
     $nextMonday = strtotime('+1 week', $nextMonday);
     $nextSunday = strtotime('+1 week', $nextSunday);
-	
-	$number++;	
+
+	$number++;
 }
-	
+
 
 return $tabweeks;
 
@@ -1017,11 +1021,11 @@ return $tabweeks;
 
 
 function getmois($mois){
-	
+
 	$moislib="";
-	
+
 	switch($mois){
-		
+
 		case "01":
 			$moislib="janvier";
 		break;
@@ -1058,15 +1062,15 @@ function getmois($mois){
 		case "12":
 			$moislib="décembre";
 		break;
-		
+
 	}
-	
+
 	return $moislib;
-	
+
 }
 
 function random_str_generator($len_of_gen_str){
-	
+
 	try {
 
         //initialisation du message d'erreur
@@ -1074,56 +1078,56 @@ function random_str_generator($len_of_gen_str){
 
 		//Connexion à la base de données
 		$conn = ConnBDDpdo();
-		
+
 		$chaine="";
 
 		$chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 		$var_size = strlen($chars);
-		echo "Random string ="; 
+		echo "Random string =";
 		for( $x = 0; $x < $len_of_gen_str; $x++ ) {
-			$random_str= $chars[ rand( 0, $var_size - 1 ) ];  
-		   $chaine.=$random_str;  
+			$random_str= $chars[ rand( 0, $var_size - 1 ) ];
+		   $chaine.=$random_str;
 		}
 
-		
+
 		$stmt = $conn->prepare("SELECT count(*) as NB FROM stage WHERE reference = :chaine");
 		$stmt->bindParam(':chaine', $chaine);
 		$stmt->execute();
 		$res = $stmt->fetch(PDO::FETCH_ASSOC);
 		$stmt->closeCursor();
-		
+
 		if($res["NB"]==0){
-			
+
 			return $chaine;
-			
+
 		}else{
-			
+
 			return random_str_generator($len_of_gen_str);
 		}
-			
+
 	} catch (PDOException $e) {
         $err = $e;
         $conn = null;
         return $err;
     }
-	
+
 }
 
 
  function funct_encode($texte){
-	
+
 	$texte=utf8_encode($texte);
-	
+
 	return $texte;
-	 
+
  }
- 
+
   function funct_decode($texte){
-	
+
 	$texte=utf8_decode($texte);
-	
+
 	return $texte;
-	 
+
  }
 
 require_once get_template_directory() . '/functiondev1.php';
